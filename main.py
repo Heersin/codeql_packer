@@ -1,5 +1,6 @@
 from helper.cmd_helper import CmdHelper
 from helper.system_helper import SysHelper
+from codeql.codeql import run_codeql
 
 def init_workspace():
     sys_op = SysHelper()
@@ -19,6 +20,10 @@ def main():
     args = parser.parse_args()
 
     init_workspace()
+
+    run_codeql(args)
+
+    print('[*]Finish')
 
 
 if __name__ == '__main__':
