@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# ============ Custom Config =============
+# output dir
+output/
+databases/
+tmp/
