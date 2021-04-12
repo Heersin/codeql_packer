@@ -1,7 +1,7 @@
 from .base_reader import BaseReader
 import json
 
-class SafriReader(BaseReader):
+class SarifReader(BaseReader):
     def __init__(self):
         self.files = []
         self.data = []
@@ -9,11 +9,11 @@ class SafriReader(BaseReader):
     def read(self, path):
         self.files.append(path)
         with open(path) as f:
-            safri_data = json.load(f)
-            safri_entries = safri_data['runs'][0]['results']
-            rules_table = safri_data['runs'][0]['tool']['driver']['rules']
+            sarif_data = json.load(f)
+            sarif_entries = sarif_data['runs'][0]['results']
+            rules_table = sarif_data['runs'][0]['tool']['driver']['rules']
 
-            for entry in safri_entries:
+            for entry in sarif_entries:
                 entry_data = {}
                 entry_data['name'] = entry['ruleId']
                 entry_data['message'] = entry['message']['text']

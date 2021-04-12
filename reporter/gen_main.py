@@ -1,5 +1,5 @@
 from reader.csv_mod import CsvReader
-from reader.safri_mod import SafriReader
+from reader.sarif_mod import SarifReader
 
-r = SafriReader()
+r = SarifReader()
 r.read('/home/heersin/blackhole/codeql/result.sarif')
