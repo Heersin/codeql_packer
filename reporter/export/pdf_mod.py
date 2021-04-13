@@ -27,7 +27,7 @@ class Pdffer:
         title = f'<para autoLeading="off" fontSize={font_size} align=left><b><font face="genshin">{text}</font></b><br/><br/><br/></para>'
         self.body.append(Paragraph(title, self.style))
 
-    def addTable(self, head, lines):
+    def addTable(self, head_and_data):
         table_style = [
             ('FONTNAME', (0, 0), (-1, -1), 'genshin'),  # 字体
             ('FONTSIZE', (0, 0), (2, 0), 8),  # 第一行的字体大小
@@ -35,30 +35,14 @@ class Pdffer:
             ('ALIGN', (0, 0), (2, 0), 'CENTER'),  # 第一行左右中间对齐
             ('ALIGN', (0, 1), (2, 8), 'LEFT'),  # 第二行到最后一行左右左对齐
             ('VALIGN', (0, 0), (2, 8), 'MIDDLE'),  # 所有表格上下居中对齐
-            ('SPAN', (0, 1), (0, 2)),  # 合并第一列二三行
-            ('SPAN', (0, 3), (0, 4)),  # 合并第一列三四行
-            ('SPAN', (0, 5), (0, 6)),  # 合并第一列五六行
-            ('SPAN', (0, 7), (0, 8)),  # 合并第一列五六行
             ('BACKGROUND', (0, 0), (2, 0), colors.lightslategray),  # 设置第一行背景颜色
             ('TEXTCOLOR', (0, 0), (-1, -1), colors.darkslategray),  # 设置表格内文字颜色
             ('GRID', (0, 0), (-1, -1), 0.1, colors.slategray),  # 设置表格框线为灰色，线宽为0.1
         ]
 
-        table_data = [['年', '月', '日'],
-                  ['2017', '3', '12'],
-                  ['2017', '4', '13'],
-                  ['2017', '5', '14'],
-                  ['2017', '6', '15'],
-                  ['2018', '7', '16'],
-                  ['2018', '8', '17'],
-                  ['2018', '9', '18'],
-                  ['2018', '10', '19'],
-                  ]
-        
-        table_table = Table(table_data, colWidths=[42, 38, 147], style=table_style)
+        table_table = Table(head_and_data, style=table_style)
         self.body.append(table_table)
         
-
     def addPics(self, path, height, width):
         img = Image(path)
         img.drawWidth = width
@@ -80,11 +64,26 @@ class Pdffer:
 if __name__ == '__main__':
     converter = Pdffer()
     converter.addMainTitle("Test")
+    
+    # Add pics
+    converter.addSpace()
+    converter.addPics("assets/test.jpg", 200, 300)
+
     converter.addTitle(1, "Nice To Meet you")
     
     converter.addText("Today is monday")
-    converter.addTable(None, None)
-    converter.addSpace()
-    converter.addPics("assets/test.jpg", 200, 300)
+
+    table_data =  [['Year', 'Month', 'Day'],
+                  ['2017', '3', '12'],
+                  ['2017', '4', '13'],
+                  ['2017', '5', '14'],
+                  ['2017', '6', '15'],
+                  ['2018', '7', '16'],
+                  ['2018', '8', '17'],
+                  ['2018', '9', '18'],
+                  ['2018', '10', '19'],
+                  ]
+
+    converter.addTable(table_data)
     
     converter.generatePdf('simple.pdf')
