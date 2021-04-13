@@ -43,12 +43,32 @@ class Pdffer:
         table_table = Table(head_and_data, style=table_style)
         self.body.append(table_table)
         
-    def addPics(self, path, height, width):
+    def addPic(self, path, height, width):
         img = Image(path)
         img.drawWidth = width
         img.drawHeight = height
         self.body.append(img)
 
+    def addAlignedPics(self, path_left, path_right):
+        left_img = Image(path_left)
+        left_img.drawWidth = 320
+        left_img.drawHeight = 180
+
+        right_img = Image(path_right)
+        right_img.drawHeight = 180
+        right_img.drawWidth = 320
+
+        chart_style = TableStyle([('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                          ('VALIGN', (0, 0), (-1, -1), 'CENTER')])
+        
+        align_pics = Table(
+            [[left_img, right_img]],
+            colWidths=[320, 320],
+            rowHeights=[180],
+            style=chart_style)
+
+        self.body.append(align_pics)
+        
     def addText(self, text, color=0, size=0):
         text = f'<para autoLeading="off" fontSize=8><font face="genshin" color=darkblue>{text}</font><br/></para>'
         self.body.append(Paragraph(text, self.style))
@@ -67,7 +87,7 @@ if __name__ == '__main__':
     
     # Add pics
     converter.addSpace()
-    converter.addPics("assets/test.jpg", 200, 300)
+    converter.addPic("assets/test.jpg", 200, 300)
 
     converter.addTitle(1, "Nice To Meet you")
     
@@ -85,5 +105,8 @@ if __name__ == '__main__':
                   ]
 
     converter.addTable(table_data)
+    converter.addSpace()
+    converter.addSpace()
+    converter.addAlignedPics('assets/left.png', 'assets/right.png')
     
-    converter.generatePdf('simple.pdf')
+    converter.generatePdf('pics.pdf')

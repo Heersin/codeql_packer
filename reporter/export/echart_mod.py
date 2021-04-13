@@ -76,7 +76,6 @@ if __name__ == '__main__':
         'head' : ['A', 'B', 'C', 'D', 'E', 'F'],
         'data' : [16, 31, 22, 24, 19, 39]
     }
-    echart.addRadar('alpha', radar_d)
+    #echart.addRadar('alpha', radar_d)
     #echart.renderHtml('new.html')
-    echart.renderPic('assets/test.png')
-    os.remove('render.html')
+    echart.renderPic('assets/right.png')
