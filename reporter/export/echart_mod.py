@@ -2,7 +2,7 @@ from pyecharts import options as opts
 from pyecharts.charts import Bar
 from pyecharts.charts import Radar
 from pyecharts.render import make_snapshot
-
+from pyecharts.charts import Grid
 from snapshot_phantomjs import snapshot
 
 class Chart:
@@ -21,18 +21,19 @@ class Chart:
 
         schema = []
         for i in range(item_cnt):
-            schema.append(opts.RadarIndicatorItem(name=radar_head[i], max=max_value))
+            schema.append(opts.RadarIndicatorItem(name=radar_head[i], max_=max_value))
         
         radar.add_schema(schema)
-        radar.add(name, radar_data)
+        radar.add(name, [radar_data])
         radar.set_series_opts(label_opts=opts.LabelOpts(is_show=False))
         radar.set_global_opts(
             legend_opts=opts.LegendOpts(selected_mode="single"),
-            title_opts=opts.TitleOpts(title="Radar-单例模式"),
+            title_opts=opts.TitleOpts(title=name),
         )
 
         self.elements.append(radar)
         self.cur_element = radar
+        print('radar')
            
     def addPie(self, name, pie_data):
         pass
@@ -40,7 +41,7 @@ class Chart:
     def addBar(self, name, x, y, reverse=True):
         bar = Bar(init_opts=opts.InitOpts(bg_color='#fff'))
         bar.add_xaxis(x)
-        bar.add_yaxis(y)
+        bar.add_yaxis(y['name'], y['data'])
 
         if reverse:
             bar.reversal_axis()
@@ -50,13 +51,7 @@ class Chart:
 
         self.elements.append(bar)
         self.cur_element = bar
-
-    def setLayout(self):
-        grid = Grid()
-        .add(self.elements[0], grid_opts=opts.GridOpts(pos_left="55%"))
-        .add(self.elements[1], grid_opts=opts.GridOpts(pos_right="55%"))
-
-        self.cur_element = grid
+        print('bar')
 
     def renderHtml(self, name):
         self.cur_element.render(name)
@@ -64,3 +59,20 @@ class Chart:
     def renderPic(self, name):
         make_snapshot(snapshot, self.cur_element.render(), name)
 
+
+if __name__ == '__main__':
+    echart = Chart()
+
+    y_axis = {
+        'name' : 'class',
+        'data' : [11, 22, 33]
+    }
+    x_axis = ['part1', 'part2', 'part3']
+    echart.addBar('beta', x_axis, y_axis)
+
+    radar_d = {
+        'head' : ['A', 'B', 'C', 'D', 'E', 'F'],
+        'data' : [16, 31, 22, 24, 19, 39]
+    }
+    echart.addRadar('alpha', radar_d)
+    echart.renderHtml('new.html')
