@@ -4,6 +4,7 @@ from pyecharts.charts import Radar
 from pyecharts.render import make_snapshot
 from pyecharts.charts import Grid
 from snapshot_phantomjs import snapshot
+import os
 
 class Chart:
     def __init__(self):
@@ -58,6 +59,7 @@ class Chart:
 
     def renderPic(self, name):
         make_snapshot(snapshot, self.cur_element.render(), name)
+        os.remove('render.html')
 
 
 if __name__ == '__main__':
@@ -75,4 +77,6 @@ if __name__ == '__main__':
         'data' : [16, 31, 22, 24, 19, 39]
     }
     echart.addRadar('alpha', radar_d)
-    echart.renderHtml('new.html')
+    #echart.renderHtml('new.html')
+    echart.renderPic('assets/test.png')
+    os.remove('render.html')
