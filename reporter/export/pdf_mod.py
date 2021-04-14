@@ -55,12 +55,12 @@ class Pdffer:
 
     def addAlignedPics(self, path_left, path_right):
         left_img = Image(path_left)
-        left_img.drawWidth = 320
-        left_img.drawHeight = 180
+        left_img.drawWidth = 270
+        left_img.drawHeight = 160
 
         right_img = Image(path_right)
-        right_img.drawHeight = 180
-        right_img.drawWidth = 320
+        right_img.drawHeight = 160
+        right_img.drawWidth = 270
 
         chart_style = TableStyle([('ALIGN', (0, 0), (-1, -1), 'CENTER'),
                           ('VALIGN', (0, 0), (-1, -1), 'CENTER')])

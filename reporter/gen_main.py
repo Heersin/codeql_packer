@@ -11,7 +11,7 @@ r.read('/home/heersin/blackhole/codeql/result.sarif')
 
 #print(os.getcwd())
 
-project_name = "Socat"
+project_name = "socat"
 pdf_factory = Exporter()
 pdf_factory.setData(r.get_data())
 pdf_factory.build(project_name)

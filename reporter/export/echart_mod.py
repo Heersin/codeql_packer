@@ -1,10 +1,13 @@
 from pyecharts import options as opts
 from pyecharts.charts import Bar
 from pyecharts.charts import Radar
+from pyecharts.charts import Pie
 from pyecharts.render import make_snapshot
 from pyecharts.charts import Grid
 from snapshot_phantomjs import snapshot
 import os
+
+from pyecharts.faker import Faker
 
 class Chart:
     def __init__(self):
@@ -34,10 +37,23 @@ class Chart:
 
         self.elements.append(radar)
         self.cur_element = radar
-        print('radar')
+        print('[*]Radar Analyzing ...')
            
     def addPie(self, name, pie_data):
-        pass
+        pie = Pie()
+        pie.add(
+                name,
+                pie_data,
+                radius=["30%", "75%"],
+                center="50%",
+                rosetype="area",
+        )
+        pie.set_series_opts(label_opts=opts.LabelOpts(is_show=True, formatter='{b}-{c}' ))
+
+        self.elements.append(pie)
+        self.cur_element = pie
+        print("[*]Pie Analyzing ...")
+
 
     def addBar(self, name, x, y, reverse=True):
         bar = Bar(init_opts=opts.InitOpts(bg_color='#fff'))
@@ -52,14 +68,13 @@ class Chart:
 
         self.elements.append(bar)
         self.cur_element = bar
-        print('bar')
 
     def renderHtml(self, name):
         self.cur_element.render(name)
 
     def renderPic(self, name):
-        make_snapshot(snapshot, self.cur_element.render(), name)
-        os.remove('render.html')
+        make_snapshot(snapshot, self.cur_element.render(), name, is_remove_html=True)
+        print(f"[*]Generate A snapshot in {name}")
 
 
 if __name__ == '__main__':
@@ -67,7 +82,12 @@ if __name__ == '__main__':
 
     y_axis = {
         'name' : 'class',
-        'data' : [11, 22, 33]
+        'data' : [11, 0, 0]
+    }
+
+    y_axis2 = {
+        'name' : 'class',
+        'data' : [0, 22, 0]
     }
     x_axis = ['part1', 'part2', 'part3']
     echart.addBar('beta', x_axis, y_axis)
@@ -76,6 +96,9 @@ if __name__ == '__main__':
         'head' : ['A', 'B', 'C', 'D', 'E', 'F'],
         'data' : [16, 31, 22, 24, 19, 39]
     }
+
+    pie_d = [[k, v] for k, v in zip(radar_d['head'], radar_d['data'])]
     #echart.addRadar('alpha', radar_d)
-    #echart.renderHtml('new.html')
-    echart.renderPic('assets/right.png')
+    echart.addPie('test', pie_d)
+    echart.renderHtml('new.html')
+    #echart.renderPic('assets/right.png')
