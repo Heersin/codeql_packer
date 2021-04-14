@@ -1,6 +1,10 @@
 # Description
 This is a independent project to convert sarif and csv into pdf report, should be refactored as another command line tool
 
+## ChangeLog
+1. Move from `phantomjs` to `selenium`
+2. Use local assets server to prevent fetching error from `pyecharts.org`
+
 ## Target
 
 1. As converter
@@ -14,7 +18,25 @@ This is a independent project to convert sarif and csv into pdf report, should b
 ## QuickStart
 
 ### Usage
+
+1. run local assets sever
+```sh
+cd pyechart_server
+python -m http.server
 ```
+
+2. use gen_main.py
+```
+usage: gen_main.py [-h] -n NAME [-s SARIF] [-j JSON] [-c CSV]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -n NAME, --name NAME  project name
+  -s SARIF, --sarif SARIF
+                        read sarif format file, can set multiple times
+  -j JSON, --json JSON  read from remote json server
+  -c CSV, --csv CSV     read csv format file, can set multiple times
+
 ```
 
 ### Example
@@ -27,7 +49,7 @@ generate by `python gen_main.py`
 ## Installation Guide
 
 ### Dependency
-- This project use `phantomjs` as pyecharts' snapshot engine to convert `html` to `png`, so user should install `phantomjs` first
+- install selenium
 
 ## Project Structure
 
