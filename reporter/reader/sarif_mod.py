@@ -38,8 +38,6 @@ class SarifReader(BaseReader):
                 else:
                     entry_data['level'] = 'warning'
 
-                print(entry_data)
-
                 self.data.append(entry_data)
 
     def get_data(self):

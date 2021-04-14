@@ -4,8 +4,11 @@ from pyecharts.charts import Radar
 from pyecharts.charts import Pie
 from pyecharts.render import make_snapshot
 from pyecharts.charts import Grid
-from snapshot_phantomjs import snapshot
+from snapshot_selenium import snapshot
+from pyecharts.globals import CurrentConfig
 import os
+
+CurrentConfig.ONLINE_HOST = "http://127.0.0.1:8000/assets/"
 
 from pyecharts.faker import Faker
 

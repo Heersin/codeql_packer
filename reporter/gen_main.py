@@ -1,17 +1,21 @@
-import os
-os.chdir("./export")
+import argparse
+import generator
 
-from reader.csv_mod import CsvReader
-from reader.sarif_mod import SarifReader
-from export.export import Exporter
-
-
-r = SarifReader()
-r.read('/home/heersin/blackhole/codeql/result.sarif')
-
-#print(os.getcwd())
-
-project_name = "socat"
-pdf_factory = Exporter()
-pdf_factory.setData(r.get_data())
-pdf_factory.build(project_name)
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-n', '--name', required=True, help='project name')
+    parser.add_argument(
+        '-s', '--sarif', 
+        action='append', 
+        help='read sarif format file, can set multiple times')
+    parser.add_argument(
+        '-j', '--json',
+        help='read from remote json server'
+    )
+    parser.add_argument(
+        '-c', '--csv',
+        action='append',
+        help='read csv format file, can set multiple times')
+    
+    args = parser.parse_args()
+    generator.generate(args)

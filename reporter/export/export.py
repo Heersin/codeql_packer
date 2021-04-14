@@ -40,8 +40,8 @@ class Exporter:
         top_list.reverse()
         self.top_list = top_list
 
-    def setData(self, pack_data):
-        self.entries = pack_data['data']
+    def setData(self, data):
+        self.entries = data
 
     def setProjName(self, name):
         self.proj_name = name
