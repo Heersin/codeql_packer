@@ -20,9 +20,9 @@ This is a independent project to convert sarif and csv into pdf report, should b
 ### Example
 generate by `python gen_main.py`
 
-[scan results of socat project-0](https://github.com/Heersin/codeql_packer/blob/main/reporter/export/output_test/page0.png)
+![scan results of socat project-0](https://github.com/Heersin/codeql_packer/blob/main/reporter/export/output_test/page0.png)
 
-[scan results of socat project-1](https://github.com/Heersin/codeql_packer/blob/main/reporter/export/output_test/page1.png)
+![scan results of socat project-1](https://github.com/Heersin/codeql_packer/blob/main/reporter/export/output_test/page1.png)
 
 ## Installation Guide
 
