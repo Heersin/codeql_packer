@@ -1,5 +1,5 @@
 # codeql_packer
-Scripts to pack codeql
+Scripts to pack codeql, there is also a module to generate report (with example), see [reporter](https://github.com/Heersin/codeql_packer/blob/main/reporter/README.md)
 
 ## Dependencies
 ### Python Requirements
