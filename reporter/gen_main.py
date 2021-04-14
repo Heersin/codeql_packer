@@ -9,8 +9,9 @@ from export.export import Exporter
 r = SarifReader()
 r.read('/home/heersin/blackhole/codeql/result.sarif')
 
-print(os.getcwd())
+#print(os.getcwd())
 
+project_name = "Socat"
 pdf_factory = Exporter()
 pdf_factory.setData(r.get_data())
-pdf_factory.build()
+pdf_factory.build(project_name)
