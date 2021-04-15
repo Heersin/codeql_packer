@@ -4,6 +4,7 @@ This is a independent project to convert sarif and csv into pdf report, should b
 ## ChangeLog
 1. Move from `phantomjs` to `selenium`
 2. Use local assets server to prevent fetching error from `pyecharts.org`
+3. Mail sending added
 
 ## Target
 
@@ -36,7 +37,33 @@ optional arguments:
                         read sarif format file, can set multiple times
   -j JSON, --json JSON  read from remote json server
   -c CSV, --csv CSV     read csv format file, can set multiple times
+  -m, --mail            mail this report to your configed mailbox
+```
 
+for example (use pre-analyzed files): 
+> python gen_main.py -n socat_new -s ~/blackhole/codeql/result.sarif -c ~/blackhole/codeql/result.csv --mail
+
+### Mail(Optional)
+If you want to send your scan result to your mailbox, use `--mail` option. There is serveral config variables you have to set before using Mail module:
+```python
+# File : mailer/shadow.py
+
+# example
+# SMTP_HOST='smtp.xyz.com'
+# SMTP_PORT='25'
+# SMTP_USERNAME='Alice'
+# SMTP_PASSWORD='AlicePassword'
+
+# FROM='Alice@xyz.com'
+# DESTINATION='Bob@abc.com'
+
+SMTP_HOST=''
+SMTP_PORT=25
+SMTP_USERNAME=''
+SMTP_PASSWORD=''
+
+FROM=''
+DESTINATION=''
 ```
 
 ### Example
