@@ -37,7 +37,7 @@ def generate(args):
 
     reporter = Exporter()
     reporter.setData(proj_data)
-    reporter.build(project_name)
+    return reporter.build(project_name)
 
 #r = SarifReader()
 #r.read('/home/heersin/blackhole/codeql/result.sarif')

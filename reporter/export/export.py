@@ -170,11 +170,13 @@ class Exporter:
             convertor.addSpace()
             c_index += 1
 
-        convertor.generatePdf('output_test/' + proj_name + '_result.pdf')
+        result_pdf_path = 'output_test/' + proj_name + '_result.pdf'
+        convertor.generatePdf(result_pdf_path)
+        return result_pdf_path
 
     def build(self, proj_name):
         self.proj_name = proj_name
         print("[*]Start Analyze Data ...")
         self.analyzeData()
         print("[*]Building pdf ...")
-        self.build_pdf()
+        return self.build_pdf()
