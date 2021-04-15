@@ -3,6 +3,7 @@ os.chdir("./export")
 
 from reader.csv_mod import CsvReader
 from reader.sarif_mod import SarifReader
+from reader.server_mod import RestfulReader
 from export.export import Exporter
 
 def generate(args):
@@ -34,6 +35,12 @@ def generate(args):
         csv_reader.read(f)
     csv_data = csv_reader.get_data()
     proj_data.extend(csv_data['data'])
+
+    restful_reader = RestfulReader()
+    for rid in json_list:
+        restful_reader.read(rid)
+    restful_data = restful_reader.get_data()
+    proj_data.extend(restful_data['data'])
 
     reporter = Exporter()
     reporter.setData(proj_data)
